@@ -11,20 +11,13 @@ from time import sleep
 from xdg.BaseDirectory import xdg_config_home
 import mstools
 
-
-
 CONF_FILE = xdg_config_home+"/mst/config"
-
 
 conf = open(CONF_FILE, 'r')
 infos = mstools.get_conf()
 SERVER_LOCATION = infos[0]
 SERVER_VERSION  = infos[1]
 MAXIMUM_RAM = infos[2]
-
-
-
-# location = "/home/spigot/server"
 
 # Broadcast
 run(["screen", "-S", "minecraft_server", "-p", "0", "-X", "stuff", "broadcast ATENTION ! reboot auto du serveur ! on se retrouve dans 30 secondes^M"])
