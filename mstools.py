@@ -52,8 +52,7 @@ def detect_screen():
         return False
 
 def start(location, version, ram_max):
-
-	cmd = "cd "+location+" && screen -S minecraft_server java -Xms1G -Xmx"+ram_max+" -jar spigot-"+version+".jar"
+	cmd = "cd "+location+" && screen -dmS minecraft_server java -Xms1G -Xmx"+ram_max+" -jar spigot-"+version+".jar"
 	run([cmd],shell=True ,cwd=location)
 
 def stop():

@@ -57,6 +57,7 @@ class CLISimple (cmd.Cmd) :
 		nimp = input()
 
 		mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
+		run(["screen", "-x"])
 
 	def do_access (self, line) :
 		"""Accéder à la console du serveur minecraft"""
@@ -77,6 +78,7 @@ class CLISimple (cmd.Cmd) :
 		mstools.stop()
 
 		mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
+		run(["screen", "-x"])
 		
 	def do_logs(self, line):
 		"""Accéder au log les plus récents"""
@@ -119,6 +121,7 @@ class CLISimple (cmd.Cmd) :
 				run(["cp",build_location ,SERVER_LOCATION])
 
 				mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
+				run(["screen", "-x"])
 
 			elif nimp == "2":
 
