@@ -30,7 +30,6 @@ for prog in DEPENDANCES:
 
 # Verifie qu'une config existe sinon en creer une
 try:
-	conf = open(CONF_FILE, 'r')
 	infos = mstools.get_conf()
 	SERVER_LOCATION= infos[0]
 	SERVER_VERSION  = infos[1]
@@ -53,11 +52,16 @@ class CLISimple (cmd.Cmd) :
 		"""Démarrer le serveur minecraft"""
 		
 		run("clear")
-		print (INFO+"Pour retourner au menu, utilisez la combinaison de touches ctrl+a+d\nAppuyez sur n'importe quelle touche pour continuer\n"+ENDC)
-		nimp = input()
+		is_runing = mstools.detect_screen()
+		if not is_runing:
+			print (INFO+"Pour retourner au menu, utilisez la combinaison de touches ctrl+a+d\nAppuyez sur n'importe quelle touche pour continuer\n"+ENDC)
+			nimp = input()
 
-		mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
-		run(["screen", "-x"])
+			mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
+			run(["screen", "-x"])
+		else:
+			print(WARNING+"Serveur deja en route !\nVeuillez l eteindre ou le redemarrer"+ENDC)
+			nimp = input()
 
 	def do_access (self, line) :
 		"""Accéder à la console du serveur minecraft"""
@@ -88,11 +92,11 @@ class CLISimple (cmd.Cmd) :
 		nimp = input()
 
 	def do_change(self, line):
-		"""Changer les parametres du serveur (dossier, version, ..)"""
+		"""Changer les parametres du serveur (dossier, version, ...)"""
 
 		run(["rm", "-r", CONF_DIR])
 		mstools.first_setup_wizard()
-	
+			
 	def do_update(self, line):
 		"""Mise à jour de spigot"""
 		
@@ -131,7 +135,7 @@ class CLISimple (cmd.Cmd) :
 			else:
 
 				print("Erreur ! 1 ou 2 abruti !")
-		
+
 	def do_stop (self, line) :
 		"""Stop le serveur minecraft"""
 
