@@ -96,7 +96,13 @@ class CLISimple (cmd.Cmd) :
 
 		run(["rm", "-r", CONF_DIR])
 		mstools.first_setup_wizard()
-			
+		
+		"""Redemarage necessaire pour apliquer les changements"""
+		print (INFO+"\nRedemarage pour apliquer les changements"+ENDC)
+		print (INFO+"\nAppuyez sur n'importe quelle touche pour quitter"+ENDC)
+		nimp = input()
+		exit(0)
+	
 	def do_update(self, line):
 		"""Mise à jour de spigot"""
 		
