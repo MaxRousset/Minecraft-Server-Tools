@@ -70,7 +70,7 @@ class CLISimple (cmd.Cmd) :
 			print (INFO+"Serveur : "+OKGREEN+"UP"+ENDC)
 		else:
 			print (INFO+"Serveur : "+WARNING+"DOWN"+ENDC)
-			
+
 		print (INFO+"Version : "+ENDC+SERVER_VERSION)
 		print (INFO+"Ram: "+ENDC+MAXIMUM_RAM)
 		print (INFO+"Location : "+ENDC+SERVER_LOCATION)
@@ -119,39 +119,32 @@ class CLISimple (cmd.Cmd) :
 		"""Mise à jour de spigot"""
 		
 		# Build la derniere version de spigot
-		run(["rm", "-fr", "/tmp/buildspigot"])
-		run(["mkdir", "/tmp/buildspigot"])
-		run(["wget", "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"],cwd="/tmp/buildspigot")
-		run(["java", "-jar", "BuildTools.jar", "--rev", SERVER_VERSION],cwd="/tmp/buildspigot")
+		mstools.build_spigot(SERVER_VERSION)
 		
-		# Applique la mise à jour seulement si le serveur est eteint sinon demande quoi faire
+		# Applique la mise à jour si le serveur est eteint
 		is_runing = mstools.detect_screen()
 		build_location = "/tmp/buildspigot/spigot-"+SERVER_VERSION+".jar"
 
 		if not is_runing:
 			run(["cp",build_location ,SERVER_LOCATION])
 			print("Serveur mis à jour")
+		# Sinon si le serveur tourne demande quoi faire
 		else:
 			print (WARNING+"Le serveur est en route, que faire ?"+ENDC)
 			print (INFO+"(1) Redémarrer le serveur et appliquer la mise à jour"+ENDC)
 			print (INFO+"(2) Conserver la version mise à jour pour plus tard"+ENDC)
 			nimp = input()
 			if nimp == "1":
-
+				# Redemarre et aplique la mise a jour
 				mstools.stop()
-
 				run(["cp",build_location ,SERVER_LOCATION])
-
 				mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
 				run(["screen", "-x"])
-
 			elif nimp == "2":
-
+				# Stock la nouvelle version
 				newer_location = SERVER_LOCATION+"/spigot-"+SERVER_VERSION+".jar.newer"
 				run(["cp",build_location ,newer_location])
-
 			else:
-
 				print("Erreur ! 1 ou 2 abruti !")
 
 	def do_stop (self, line) :

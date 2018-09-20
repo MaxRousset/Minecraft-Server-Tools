@@ -13,6 +13,12 @@ WARNING = '\033[31m'
 ENDC = '\033[0m'
 INFO = '\033[93m'
 
+def build_spigot(server_version):
+	run(["rm", "-fr", "/tmp/buildspigot"])
+	run(["mkdir", "/tmp/buildspigot"])
+	run(["wget", "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"],cwd="/tmp/buildspigot")
+	run(["java", "-jar", "BuildTools.jar", "--rev", server_version],cwd="/tmp/buildspigot")
+
 def first_setup_wizard():
 	infos = []
 
