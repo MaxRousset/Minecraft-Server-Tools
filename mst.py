@@ -63,6 +63,18 @@ class CLISimple (cmd.Cmd) :
 			print(WARNING+"Serveur deja en route !\nVeuillez l eteindre ou le redemarrer"+ENDC)
 			nimp = input()
 
+	def do_status (self, line) :
+		"""Infos sur l'etat actuel"""
+		is_runing = mstools.detect_screen()
+		if is_runing:
+			print (INFO+"Serveur : "+OKGREEN+"UP"+ENDC)
+		else:
+			print (INFO+"Serveur : "+WARNING+"DOWN"+ENDC)
+			
+		print (INFO+"Version : "+ENDC+SERVER_VERSION)
+		print (INFO+"Ram: "+ENDC+MAXIMUM_RAM)
+		print (INFO+"Location : "+ENDC+SERVER_LOCATION)
+
 	def do_access (self, line) :
 		"""Accéder à la console du serveur minecraft"""
 
