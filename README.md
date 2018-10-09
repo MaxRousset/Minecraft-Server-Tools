@@ -13,3 +13,5 @@ Petit script pour gerer un serveur minecraft
 - acceder a la console du serveur minecraft
 
 - acces au dernier logs
+
+- reboot en cas de crash activable ou non
