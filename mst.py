@@ -114,6 +114,14 @@ class CLISimple (cmd.Cmd) :
 		print (INFO+"\nAppuyez sur n'importe quelle touche pour quitter"+ENDC)
 		nimp = input()
 		exit(0)
+
+	def do_autorestart_on(self, line):
+		"""Active l'autorestart en cas de crash"""
+		mstools.enable_autorestart()
+
+	def do_autorestart_off(self, line):
+		"""Active l'autorestart en cas de crash"""
+		mstools.disable_autorestart()
 	
 	def do_update(self, line):
 		"""Mise à jour de spigot"""

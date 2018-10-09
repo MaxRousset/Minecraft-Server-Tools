@@ -6,6 +6,8 @@
 from subprocess import run, check_output
 from time import sleep
 from xdg.BaseDirectory import xdg_config_home
+from crontab import CronTab
+import os
 
 CONF_DIR = xdg_config_home+"/mst"
 CONF_FILE = xdg_config_home+"/mst/config"
@@ -71,3 +73,23 @@ def stop():
 		print (WARNING+"\nArrêt complet du serveur ...\nVeuillez patienter ..."+ENDC)
 		sleep(1)
 		is_runing = detect_screen()
+
+def enable_autorestart():
+    #monitor_script = os.getcwd()+"/detect-crash.py"
+    monitor_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/detect-crash.py"
+	# use current user for cron
+    cron = CronTab(user=True)
+    # create task
+    job = cron.new(command=monitor_script, comment="MST autorestart")
+    # set time
+    job.minute.every(1)
+    # write to file
+    cron.write()
+
+def disable_autorestart():
+    # use current user for cron
+    cron = CronTab(user=True)
+    # remove task
+    cron.remove_all(comment="MST autorestart")
+    # write to file
+    cron.write()
