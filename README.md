@@ -1,17 +1,17 @@
 # Minecraft-Server-Tools
+![](https://libertycraft.fr/wp-content/uploads/2018/10/Capture-d’écran-du-2018-10-09-23-20-37.png)
+## Petit script pour gérer un serveur minecraft spigot
 
-Petit script pour gerer un serveur minecraft
+*  Mémoire ram , emplacement ou version de spigot variable
 
-- build ou mise a jour de spigot
+*  Build ou mise a jour de spigot
 
-- reboot
+*  Redémarrage, arrêt ou démarrage du serveur
+ 
+*  Accès a la console du serveur minecraft
+ 
+*  Accès au dernier logs
+ 
+*  Redémarrage automatique en cas de crash activable ou non
 
-- arret du serveur
-
-- demarrage du serveur
-
-- acceder a la console du serveur minecraft
-
-- acces au dernier logs
-
-- reboot en cas de crash activable ou non
+*  Redémarrage quotidien activable ou non
