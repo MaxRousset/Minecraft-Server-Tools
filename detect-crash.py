@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-""" Monitoring serveur minecraft avec envoie de sms par l API ovh en cas de serveur down """
+""" Monitoring serveur minecraft """
 
 import requests, time, datetime
 from subprocess import run
