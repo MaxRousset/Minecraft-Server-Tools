@@ -79,9 +79,9 @@ def enable_autoreboot():
 	check = check_cron("MST autoreboot")
 	
 	if check:
-		print("Autoreboot deja en route")
+		print("Autoreboot déjà en route")
 	else:
-		print(INFO+"Entrez l' heure du redemarage auto (exemple: 13)\n"+ENDC)
+		print(INFO+"Entrez l'heure du redémarrage auto (exemple: 13)\n"+ENDC)
 		reboot_hour = input()
 		cron_time = "0 "+reboot_hour+" * * *"
 
@@ -107,7 +107,7 @@ def enable_autorestart():
 	check = check_cron("MST autorestart")
 	
 	if check:
-		print("Autorestart deja en route")
+		print("Autorestart déjà en route")
 	else:
 		# use current user for cron
 		cron = CronTab(user=True)
