@@ -75,16 +75,13 @@ def stop():
 		is_runing = detect_screen()
 
 def enable_autorestart():
-	#monitor_script = os.getcwd()+"/detect-crash.py"
 	monitor_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/cron-rsc/detect-crash.py"
 	# use current user for cron
 	cron = CronTab(user=True)
-	
-	test = cron.find_comment("MST autorestart")
 
-	for item1 in test:
-		test = 0
-	if not test:
+	check = check_cron("MST autorestart")
+	
+	if check:
 		print("Autorestart deja en route")
 	else:
 		# create task
@@ -101,3 +98,15 @@ def disable_autorestart():
 	cron.remove_all(comment="MST autorestart")
 	# write to file
 	cron.write()
+
+def check_cron(job):
+	#check for a specific cron task from comment
+	cron = CronTab(user=True)
+	test = cron.find_comment(job)
+
+	for item1 in test:
+		test = 0
+	if not test:
+		return True
+	else:
+		return False
