@@ -4,11 +4,11 @@
 
 *  Mémoire ram , emplacement ou version de spigot variable
 
-*  Build ou mise a jour de spigot
+*  Build ou mise à jour de spigot
 
 *  Redémarrage, arrêt ou démarrage du serveur
  
-*  Accès a la console du serveur minecraft
+*  Accès à la console du serveur minecraft
  
 *  Accès au dernier logs
  
