@@ -74,16 +74,43 @@ def stop():
 		sleep(1)
 		is_runing = detect_screen()
 
-def enable_autorestart():
-	monitor_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/cron-rsc/detect-crash.py"
+def enable_autoreboot():
+	reboot_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/cron-rsc/reboot.py"
+	check = check_cron("MST autoreboot")
+	
+	if check:
+		print("Autoreboot deja en route")
+	else:
+		print(INFO+"Entrez l' heure du redemarage auto (exemple: 13)\n"+ENDC)
+		reboot_hour = input()
+		cron_time = "0 "+reboot_hour+" * * *"
+
+		# use current user for cron
+		cron = CronTab(user=True)
+		# create task
+		job = cron.new(command=reboot_script, comment="MST autoreboot")
+		# set time
+		job.setall(cron_time)
+		# write to file
+		cron.write()
+
+def disable_autoreboot():
 	# use current user for cron
 	cron = CronTab(user=True)
+	# remove task
+	cron.remove_all(comment="MST autoreboot")
+	# write to file
+	cron.write()
 
+def enable_autorestart():
+	monitor_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/cron-rsc/detect-crash.py"
 	check = check_cron("MST autorestart")
 	
 	if check:
 		print("Autorestart deja en route")
 	else:
+		# use current user for cron
+		cron = CronTab(user=True)
 		# create task
 		job = cron.new(command=monitor_script, comment="MST autorestart")
 		# set time

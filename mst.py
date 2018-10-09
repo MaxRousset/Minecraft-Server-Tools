@@ -81,6 +81,12 @@ class CLISimple (cmd.Cmd) :
 		else:
 			print(INFO+"Autorestart: "+WARNING+"OFF")
 
+		check = mstools.check_cron("MST autoreboot")
+		if check:
+			print(INFO+"Autoreboot: "+OKGREEN+"ON")
+		else:
+			print(INFO+"Autoreboot: "+WARNING+"OFF")
+
 	def do_access (self, line) :
 		"""Accéder à la console du serveur minecraft"""
 
@@ -126,8 +132,16 @@ class CLISimple (cmd.Cmd) :
 		mstools.enable_autorestart()
 
 	def do_autorestart_off(self, line):
-		"""Active l'autorestart en cas de crash"""
+		"""Desactive l'autorestart en cas de crash"""
 		mstools.disable_autorestart()
+
+	def do_autoreboot_on(self, line):
+		"""Active l'autoreboot quotidien"""
+		mstools.enable_autoreboot()
+
+	def do_autoreboot_off(self, line):
+		"""DEsactive l'autoreboot quotidien"""
+		mstools.disable_autoreboot()
 	
 	def do_update(self, line):
 		"""Mise à jour de spigot"""
