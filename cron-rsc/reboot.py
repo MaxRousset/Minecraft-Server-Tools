@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 """Auto reboot"""
-# Pour un reboot auto tout les jours a 6 heures du matin :
-# 00 6 * * * /home/spigot/.bin/reboot.sh
-# a placer dans crontab
 
 from subprocess import run
 from time import sleep
