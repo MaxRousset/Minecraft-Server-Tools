@@ -39,7 +39,7 @@ def first_setup_wizard():
 	ram_max = input(INFO+"Entrez la quantiter de ram maximum en giga (exemple: 6G)\n"+ENDC)
 	infos.append(ram_max)
 	conf.write(ram_max+"\n")
-	
+
 	conf.close()
 	return infos
 
@@ -53,11 +53,11 @@ def get_conf():
 	return infos
 
 def detect_screen():
-    try:
-        check_output(['screen', '-ls', 'minecraft_server'])
-        return True
-    except:
-        return False
+	try:
+		check_output(['screen', '-ls', 'minecraft_server'])
+		return True
+	except:
+		return False
 
 def start(location, version, ram_max):
 	cmd = "cd "+location+" && screen -dmS minecraft_server java -Xms1G -Xmx"+ram_max+" -jar spigot-"+version+".jar"
@@ -75,21 +75,29 @@ def stop():
 		is_runing = detect_screen()
 
 def enable_autorestart():
-    #monitor_script = os.getcwd()+"/detect-crash.py"
-    monitor_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/detect-crash.py"
+	#monitor_script = os.getcwd()+"/detect-crash.py"
+	monitor_script = os.path.abspath(os.path.join(__file__, os.pardir))+"/cron-rsc/detect-crash.py"
 	# use current user for cron
-    cron = CronTab(user=True)
-    # create task
-    job = cron.new(command=monitor_script, comment="MST autorestart")
-    # set time
-    job.minute.every(1)
-    # write to file
-    cron.write()
+	cron = CronTab(user=True)
+	
+	test = cron.find_comment("MST autorestart")
+
+	for item1 in test:
+		test = 0
+	if not test:
+		print("Autorestart deja en route")
+	else:
+		# create task
+		job = cron.new(command=monitor_script, comment="MST autorestart")
+		# set time
+		job.minute.every(1)
+		# write to file
+		cron.write()
 
 def disable_autorestart():
-    # use current user for cron
-    cron = CronTab(user=True)
-    # remove task
-    cron.remove_all(comment="MST autorestart")
-    # write to file
-    cron.write()
+	# use current user for cron
+	cron = CronTab(user=True)
+	# remove task
+	cron.remove_all(comment="MST autorestart")
+	# write to file
+	cron.write()
