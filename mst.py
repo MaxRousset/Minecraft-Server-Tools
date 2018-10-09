@@ -75,6 +75,12 @@ class CLISimple (cmd.Cmd) :
 		print (INFO+"Ram: "+ENDC+MAXIMUM_RAM)
 		print (INFO+"Location : "+ENDC+SERVER_LOCATION)
 
+		check = mstools.check_cron("MST autorestart")
+		if check:
+			print(INFO+"Autorestart: "+OKGREEN+"ON")
+		else:
+			print(INFO+"Autorestart: "+WARNING+"OFF")
+
 	def do_access (self, line) :
 		"""Accéder à la console du serveur minecraft"""
 
