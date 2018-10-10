@@ -15,3 +15,7 @@
 *  Redémarrage automatique en cas de crash activable ou non
 
 *  Redémarrage quotidien activable ou non
+
+## Dépendances :
+
+wget, java, screen, git, crontab, python3-crontab
