@@ -5,14 +5,9 @@
 import requests, time, datetime
 from subprocess import run
 from xdg.BaseDirectory import xdg_config_home
-import mstools
+from cronlibs import get_conf, detect_screen, start
 
 now = datetime.datetime.now()
-
-"""Intervalle en minutes entre deux check"""
-INTERVALL = 1
-SERVER_ADRESS = '127.0.0.1'
-SERVER_PORT = 25565
 
 """logs file location"""
 LOGS_FILE = xdg_config_home+"/mst/logs"
@@ -21,12 +16,10 @@ LOGS_FILE = xdg_config_home+"/mst/logs"
 CONF_FILE = xdg_config_home+"/mst/config"
 
 """Get conf"""
-conf = open(CONF_FILE, 'r')
-infos = mstools.get_conf()
+infos = get_conf()
 SERVER_LOCATION = infos[0]
 SERVER_VERSION  = infos[1]
 MAXIMUM_RAM = infos[2]
-
 
 try:
 	conf = open(LOGS_FILE, 'w')
@@ -34,8 +27,7 @@ try:
 except IOError:
 	run(["touch", LOGS_FILE])
 
-
-is_runing = mstools.detect_screen()
+is_runing = detect_screen()
 
 if is_runing:
 	current_date = now.strftime("%Y-%m-%d %H:%M")
@@ -43,7 +35,7 @@ if is_runing:
 
 else:
 	#if down try restart
-	mstools.start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
-
+	start(SERVER_LOCATION, SERVER_VERSION, MAXIMUM_RAM)
+	#write to logs
 	current_date = now.strftime("%Y-%m-%d %H:%M")
 	conf.write("server restarted "+current_date+"\n")
