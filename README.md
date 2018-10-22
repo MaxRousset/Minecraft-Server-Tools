@@ -18,4 +18,4 @@
 
 ## Dépendances :
 
-wget, java, screen, git, crontab, python3-crontab
+wget, java, screen, git, cron, python3-crontab, python3-xdg
